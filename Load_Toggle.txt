@@ -83,7 +83,7 @@ _G.Settings = {
 		["Select Team"] = {"Pirate"}, --{Pirate,Marine}
 
 
-		["Fast Attack"] = true,
+		["Fast Attack"] = false,
 		["Fast Attack Type"] = {"Normal"}, --{Normal,Fast,Slow}
 
 		["Select Weapon"] = {},
@@ -91,7 +91,7 @@ _G.Settings = {
 
 		--[Misc Configs]
 		["Auto Haki"] = true,
-		["Distance Auto Farm"] = 20, --{Max : 50}
+		["Distance Auto Farm"] = 30, --{Max : 50}
 		["Camera Shaker"] = false,
 
 		--[Skill Configs]
@@ -4427,7 +4427,7 @@ function LoadSettings()
 			makefolder("Salad X Hub Premium Scripts")
 		end
 		if not isfolder("Salad X Hub Premium Scripts/Blox Fruits/") then
-			makefolder("Salad X Premium Scripts/Blox Fruits/")
+			makefolder("Salad X HUB Premium Scripts/Blox Fruits/")
 		end
 		if not isfile("Salad X Hub Premium Scripts/Blox Fruits/" .. game.Players.LocalPlayer.Name .. ".json") then
 			writefile("Salad X Hub Premium Scripts/Blox Fruits/" .. game.Players.LocalPlayer.Name .. ".json", game:GetService("HttpService"):JSONEncode(_G.Settings))
@@ -4899,7 +4899,7 @@ local function toTarget(...)
 		RealTarget = CFrame.new(unpack(RealtargetPos))
 	end
 
-	if game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Health == 0 then if tween then tween:Cancel() end repeat wait() until game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Health > 0; wait(0.2) end
+	if game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Health == 0 then if tweenn then tweenn:Cancel() end repeat wait() until game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Health > 0; wait(0.2) end
 
 	local tweenfunc = {}
 	local Distance = (RealTarget.Position - game:GetService("Players").LocalPlayer.Character:WaitForChild("HumanoidRootPart").Position).Magnitude
@@ -4912,7 +4912,7 @@ local function toTarget(...)
 	if _G.Settings.Configs["Bypass TP"] then
 		if Distance > 3000 and not AutoFarmMaterial and not _G.Settings.FightingStyle["Auto God Human"] and not _G.Settings.Raids["Auto Raids"] and not (game.Players.LocalPlayer.Backpack:FindFirstChild("Special Microchip") or game.Players.LocalPlayer.Character:FindFirstChild("Special Microchip") or game.Players.LocalPlayer.Backpack:FindFirstChild("God's Chalice") or game.Players.LocalPlayer.Character:FindFirstChild("God's Chalice") or game.Players.LocalPlayer.Backpack:FindFirstChild("Hallow Essence") or game.Players.LocalPlayer.Character:FindFirstChild("Hallow Essence") or game.Players.LocalPlayer.Character:FindFirstChild("Sweet Chalice") or game.Players.LocalPlayer.Backpack:FindFirstChild("Sweet Chalice")) and not (Name == "Fishman Commando [Lv. 400]" or Name == "Fishman Warrior [Lv. 375]") then
 			pcall(function()
-				tween:Cancel()
+				tweenn:Cancel()
 				fkwarp = false
 
 				if game:GetService("Players")["LocalPlayer"].Data:FindFirstChild("SpawnPoint").Value == tostring(GetIsLand(RealTarget)) then 
@@ -4945,26 +4945,26 @@ local function toTarget(...)
 	local tween_s = game:service"TweenService"
 	local info = TweenInfo.new((RealTarget.Position - game:GetService("Players").LocalPlayer.Character:WaitForChild("HumanoidRootPart").Position).Magnitude/Speed, Enum.EasingStyle.Linear)
 	local tweenw, err = pcall(function()
-		tween = tween_s:Create(game.Players.LocalPlayer.Character["HumanoidRootPart"], info, {CFrame = RealTarget})
-		tween:Play()
+		tweenn = tween_s:Create(game.Players.LocalPlayer.Character["HumanoidRootPart"], info, {CFrame = RealTarget})
+		tweenn:Play()
 	end)
 
 	function tweenfunc:Stop()
-		tween:Cancel()
+		tweenn:Cancel()
 	end 
 
 	function tweenfunc:Wait()
-		tween.Completed:Wait()
+		tweenn.Completed:Wait()
 	end 
 
 	return tweenfunc
 end
 
 function toTargetP(CFgo)
-	if game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Health <= 0 or not game:GetService("Players").LocalPlayer.Character:WaitForChild("Humanoid") then tween:Cancel() repeat wait() until game:GetService("Players").LocalPlayer.Character:WaitForChild("Humanoid") and game:GetService("Players").LocalPlayer.Character:WaitForChild("Humanoid").Health > 0 wait(7) return end
+	if game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Health <= 0 or not game:GetService("Players").LocalPlayer.Character:WaitForChild("Humanoid") then tweenn:Cancel() repeat wait() until game:GetService("Players").LocalPlayer.Character:WaitForChild("Humanoid") and game:GetService("Players").LocalPlayer.Character:WaitForChild("Humanoid").Health > 0 wait(7) return end
 	if (game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart.Position - CFgo.Position).Magnitude <= 150 then
 		pcall(function()
-			tween:Cancel()
+			tweenn:Cancel()
 
 			game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart.CFrame = CFgo
 
@@ -4973,13 +4973,13 @@ function toTargetP(CFgo)
 	end
 	local tween_s = game:service"TweenService"
 	local info = TweenInfo.new((game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart.Position - CFgo.Position).Magnitude/325, Enum.EasingStyle.Linear)
-	tween = tween_s:Create(game.Players.LocalPlayer.Character["HumanoidRootPart"], info, {CFrame = CFgo})
-	tween:Play()
+	tweenn = tween_s:Create(game.Players.LocalPlayer.Character["HumanoidRootPart"], info, {CFrame = CFgo})
+	tweenn:Play()
 
 	local tweenfunc = {}
 
 	function tweenfunc:Stop()
-		tween:Cancel()
+		tweenn:Cancel()
 	end
 
 	return tweenfunc
@@ -7376,8 +7376,8 @@ end
 local win = ui:W1n("BLADE X","PVP",0.30,Enum.KeyCode.RightControl)
 
 local Tap = win:Tap("Main")
-local TapXd = win:Tap("More")
-local Tab = win:Tap("Raid")
+local TapXd = win:Tap("Setting")
+local Tab1 = win:Tap("Teleport")
 local Tab2 = win:Tap("Weapon")
 local Tab3 = win:Tap("Farm")
 
@@ -8049,3 +8049,441 @@ MainSection:Dropdown("Select Weapon",Weapon,function(value)
 		end)
 	end
 end)
+
+MainSection:Toggle("Fast Attack [1]",true,function(value)
+ _G.FastAttack2 = value
+ end)
+
+local CameraShaker = require(game.ReplicatedStorage.Util.CameraShaker)
+CombatFrameworkR = require(game:GetService("Players").LocalPlayer.PlayerScripts.CombatFramework)
+y = debug.getupvalues(CombatFrameworkR)[2]
+spawn(function()
+ game:GetService("RunService").RenderStepped:Connect(function()
+  if _G.FastAttack2 then
+  if typeof(y) == "table" then
+  pcall(function()
+   CameraShaker:Stop()
+   y.activeController.timeToNextAttack = (math.huge^math.huge^math.huge)
+   y.activeController.timeToNextAttack = 0
+   y.activeController.hitboxMagnitude = 9999
+   y.activeController.active = false
+   y.activeController.timeToNextBlock = 0
+   y.activeController.focusStart = 0
+   y.activeController.increment = 4
+   y.activeController.blocking = false
+   y.activeController.attacking = false
+   y.activeController.humanoid.AutoRotate = true
+   end)
+  end
+  end
+  end)
+ end)
+ 
+ MainSection:Dropdown("Select Material",AllMaterial,function(value)
+ SelectModeMaterial = value
+ end)
+ MainSection:Toggle("Auto Farm Material",AutoFarmMaterial,function(x)
+ AutoFarmMaterial = x
+		if x == false then
+			wait()
+			toTarget(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame)
+			wait()
+		end
+		if x == false then
+			toTarget(game.Players.LocalPlayer.Character.HumanoidRootPart.Position,game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame)
+		end
+		spawn(function()
+			while wait() do 
+				if AutoFarmMaterial then    
+					xpcall(function()
+						if (SelectModeMaterial~="") then 
+							CheckMaterial(SelectModeMaterial);
+							if CustomFindFirstChild(MaterialMob) then
+								for v0,v1 in pairs(game:GetService("Workspace").Enemies:GetChildren()) do 
+									if (AutoFarmMaterial and table.find(MaterialMob,v1.Name) and v1:FindFirstChild("HumanoidRootPart") and v1:FindFirstChild("Humanoid") and (v1.Humanoid.Health>0)) then 
+										repeat wait();
+											FarmtoTarget=toTarget(v1.HumanoidRootPart.CFrame * CFrame.new(0,30,0));
+											if (v1:FindFirstChild("HumanoidRootPart") and v1:FindFirstChild("Humanoid") and ((v1.HumanoidRootPart.Position-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude<=150)) then 
+												if FarmtoTarget then FarmtoTarget:Stop(); end 
+												FastAttack=true;
+												EquipWeapon(_G.Settings.Configs["Select Weapon"]);
+												game:GetService'VirtualUser':CaptureController()
+										game:GetService'VirtualUser':Button1Down(Vector2.new(1280, 672))
+												spawn(function()for v4,v5 in pairs(game:GetService("Workspace").Enemies:GetChildren()) do 
+														if (v5.Name==v1.Name) then 
+															spawn(function()
+																if InMyNetWork(v5.HumanoidRootPart) then 
+																	v5.HumanoidRootPart.CFrame = v1.HumanoidRootPart.CFrame;
+																	v5.Humanoid.JumpPower=0;
+																	v5.Humanoid.WalkSpeed=0;
+																	v5.HumanoidRootPart.CanCollide=false;
+																	v5.Humanoid:ChangeState(14);
+																	v5.Humanoid:ChangeState(11);
+																	v5.HumanoidRootPart.Size=Vector3.new(55,55,55);
+																end 
+															end);
+														end 
+													end 
+												end);
+												if (game.Players.LocalPlayer.Character:FindFirstChild("Black Leg") and (game.Players.LocalPlayer.Character:FindFirstChild("Black Leg").Level.Value>=150)) then 
+													game:service("VirtualInputManager"):SendKeyEvent(true,"V",false,game);
+													game:service("VirtualInputManager"):SendKeyEvent(false,"V",false,game);
+												end 
+												game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v1.HumanoidRootPart.CFrame * CFrame.new(0,30,1);
+											end 
+										until not CustomFindFirstChild(MaterialMob) or not AutoFarmMaterial or (v1.Humanoid.Health<=0) or not v1.Parent FastAttack=false;
+									end 
+								end 
+							else 
+								FastAttack=false;
+								Modstween = toTarget(CFrameMon);
+								if (World1 and (table.find(MaterialMob,"Fishman Commando [Lv. 400]")) and ((CFrameMon.Position-game:GetService("Players").LocalPlayer.Character:WaitForChild("HumanoidRootPart").Position).magnitude>50000)) then 
+									if Modstween then Modstween:Stop(); end wait(0.5);game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(61163.8515625,11.6796875,1819.7841796875));
+								elseif (World1 and not (table.find(MaterialMob,"Fishman Commando [Lv. 400]")) and ((CFrameMon.Position-game:GetService("Players").LocalPlayer.Character:WaitForChild("HumanoidRootPart").Position).magnitude>50000)) then 
+									if Modstween then Modstween:Stop();end wait(0.5);game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(3864.8515625,6.6796875, -1926.7841796875));
+								elseif (World1 and (table.find(MaterialMob,"God's Guard [Lv. 450]")) and ((CFrameMon.Position-game:GetService("Players").LocalPlayer.Character:WaitForChild("HumanoidRootPart").Position).magnitude>3000)) then 
+									if Modstween then Modstween:Stop();end wait(0.5);game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new( -4607.8227539063,872.54248046875, -1667.5568847656));
+								elseif ((CFrameMon.Position-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude<=150) then 
+									if Modstween then Modstween:Stop();end 
+									game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrameMon;
+								end 
+							end 
+						end
+					end,function(x)
+						print("Auto Farm Material Error : "..x)
+					end)
+				else
+					break;
+				end
+			end
+		end)
+	end)
+ local Main2 = Tap:newpage()
+
+Main2:Title("AUTO WEAPON")
+
+Main2:Toggle("Auto Pole",_G.Settings.Main["Auto Pole"],function(value)
+_G.Settings.Main["Auto Pole"] = value
+			if value == false then
+				wait()
+				toTarget(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame)
+				wait()
+			end
+			SaveSettings()
+			task.spawn(function()
+				while wait() do
+					pcall(function()
+						if _G.Settings.Main["Auto Pole"] then
+							if game.ReplicatedStorage:FindFirstChild("Thunder God [Lv. 575] [Boss]") or game.Workspace.Enemies:FindFirstChild("Thunder God [Lv. 575] [Boss]") then
+								for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
+									if v.Name == "Thunder God [Lv. 575] [Boss]" and v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v.Humanoid.Health > 0 then
+										repeat wait()
+											if (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude > 300 then
+												Farmtween = toTarget(v.HumanoidRootPart.Position,v.HumanoidRootPart.CFrame)
+											elseif (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 150 then
+												if Farmtween then Farmtween:Stop() end
+												StartMagnet = true
+												FastAttack = true
+												if _G.Settings.Configs["Auto Haki"] then
+													if not game.Players.LocalPlayer.Character:FindFirstChild("HasBuso") then
+														game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Buso")
+													end
+												end
+												if not game.Players.LocalPlayer.Character:FindFirstChild(_G.Settings.Configs["Select Weapon"]) then
+													wait()
+													EquipWeapon(_G.Settings.Configs["Select Weapon"])
+												end
+												toTarget(v.HumanoidRootPart.CFrame * CFrame.new(0,_G.Settings.Configs["Distance Auto Farm"],0))
+												PosMon = v.HumanoidRootPart.CFrame
+												if not _G.Settings.Configs["Fast Attack"] then
+													game:GetService'VirtualUser':CaptureController()
+													game:GetService'VirtualUser':Button1Down(Vector2.new(1280, 672))
+												end
+												v.HumanoidRootPart.Size = Vector3.new(60,60,60)
+												if _G.Settings.Configs["Show Hitbox"] then
+													v.HumanoidRootPart.Transparency = _G.Hitbox_LocalTransparency
+												else
+													v.HumanoidRootPart.Transparency = 1
+												end
+												v.Humanoid.JumpPower = 0
+												v.Humanoid.WalkSpeed = 0
+												v.HumanoidRootPart.CanCollide = false
+												v.Humanoid:ChangeState(11)
+												game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("SetSpawnPoint")
+											end
+										until not _G.Settings.Main["Auto Pole"] or v.Humanoid.Health <= 0 or not v.Parent
+										StartMagnet = false
+										FastAttack = false
+									end
+								end
+							else
+								Questtween = toTarget(CFrame.new(-7900.66406, 5606.90918, -2267.46436).Position,CFrame.new(-7900.66406, 5606.90918, -2267.46436))
+								if (CFrame.new(-7900.66406, 5606.90918, -2267.46436).Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 300 then
+									if Questtween then
+										Questtween:Stop()
+									end
+									game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-7900.66406, 5606.90918, -2267.46436)
+								end
+							end
+						end
+					end)
+				end
+			end)
+	end)
+ 
+ local S = TapXd:newpage()
+ S:Title("SETTING")
+ 
+ S:Toggle("Double Quest",_G.Settings.Configs["Double Quest"],function(value)
+       _G.Settings.Configs["Double Quest"] = value
+		SaveSettings()
+	end)
+	
+	S:Toggle("Auto Buso",_G.Settings.Configs["Auto Haki"],function(value)
+       _G.Settings.Configs["Auto Haki"] = value
+		SaveSettings()
+	end)
+	task.spawn(function()
+	while wait() do
+		pcall(function()
+			if _G.Settings.Configs["Auto Haki"] then
+				if not game.Players.LocalPlayer.Character:FindFirstChild("HasBuso") then
+					game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Buso")
+				end
+			end
+		end)
+	end
+end)
+
+S:Toggle("Bring Mob",_G.Settings.Configs["Bring Mob"],function(value)
+		_G.Settings.Configs["Bring Mob"] = value
+		SaveSettings()
+	end)
+ 
+S:Toggle("Show Hitbox",_G.Settings.Configs["Show Hitbox"],function(value)
+		_G.Settings.Configs["Show Hitbox"] = value
+		SaveSettings()
+	end)
+	
+	local TE = Tab1:newpage()
+ TE:Title("TELEPORT")
+ 
+	TeleportTable = {}
+
+if World1 then
+	TeleportTable = {"Jones Salad","Marine1","Marine2","Midle Town","Jungle","Pirate Village","Desert","Frozen Village","Colosseum","Prison","Mob Leader","Magma Village","UnderWater Gate","UnderWater City","Fountain City","Sky1","Sky2","Sky3"}
+elseif World2 then
+	TeleportTable = {"Dock","Mansion","Kingdom Of Rose","Cafe","Sunflower Field","Jeramy Mountain","Colossuem","Factory","The Bridge","Green Bit","Graveyard","Dark Area","Snow Mountain","Hot Island","Cold Island","Ice Castle","Usopp's Island","inscription Island","Forgotten Island","Ghost Ship"}
+elseif World3 then
+	TeleportTable = {"Port Town","Hydra Island","Gaint Tree","Mansion","Castle on the Sea","Graveyard Island","Icecream Island","Peanut Island","Lab","Cake Loaf"}
+end
+TE:Dropdown("Select Pos",TeleportTable,function(value)
+		_G.SelectLocalTeleport = value
+	end)
+	
+TE:Button("Teleport",function(value)
+       if World1 then
+			if _G.SelectLocalTeleport == "Jones Salad" then
+				toTarget(CFrame.new(1042.1501464844, 16.299360275269, 1444.3442382813))
+			end
+
+			if _G.SelectLocalTeleport == "Marine1" then
+				toTarget(CFrame.new(-2599.6655273438, 6.9146227836609, 2062.2216796875))
+			end
+
+			if _G.SelectLocalTeleport == "Marine2" then
+				toTarget(CFrame.new(-5081.3452148438, 85.221641540527, 4257.3588867188))
+			end
+
+			if _G.SelectLocalTeleport == "Midle Town" then
+				toTarget(CFrame.new(-655.97088623047, 7.878026008606, 1573.7612304688))
+			end
+
+			if _G.SelectLocalTeleport == "Jungle" then
+				toTarget(CFrame.new(-1499.9877929688, 22.877912521362, 353.87060546875))
+			end
+
+			if _G.SelectLocalTeleport == "Pirate Village" then
+				toTarget(CFrame.new(-1163.3889160156, 44.777843475342, 3842.8276367188))
+			end
+
+			if _G.SelectLocalTeleport == "Desert" then
+				toTarget(CFrame.new(954.02056884766, 6.6275520324707, 4262.611328125))
+			end
+
+			if _G.SelectLocalTeleport == "Frozen Village" then
+				toTarget(CFrame.new(1144.5270996094, 7.3292083740234, -1164.7322998047))
+			end
+
+			if _G.SelectLocalTeleport == "Colosseum" then
+				toTarget(CFrame.new(-1667.5869140625, 39.385631561279, -3135.5817871094))
+			end
+
+			if _G.SelectLocalTeleport == "Prison" then
+				toTarget(CFrame.new(4857.6982421875, 5.6780304908752, 732.75750732422))
+			end
+
+			if _G.SelectLocalTeleport == "Mob Leader" then
+				toTarget(CFrame.new(-2841.9604492188, 7.3560485839844, 5318.1040039063))
+			end
+
+			if _G.SelectLocalTeleport == "Magma Village" then
+				toTarget(CFrame.new(-5328.8740234375, 8.6164798736572, 8427.3994140625))
+			end
+
+			if _G.SelectLocalTeleport == "UnderWater Gate" then
+				toTarget(CFrame.new(3893.953125, 5.3989524841309, -1893.4851074219))
+			end
+
+			if _G.SelectLocalTeleport == "UnderWater City" then
+				toTarget(CFrame.new(61191.12109375, 18.497436523438, 1561.8873291016))
+			end
+
+			if _G.SelectLocalTeleport == "Fountain City" then
+				toTarget(CFrame.new(5244.7133789063, 38.526943206787, 4073.4987792969))
+			end
+
+			if _G.SelectLocalTeleport == "Sky1" then
+				toTarget(CFrame.new(-4878.0415039063, 717.71246337891, -2637.7294921875))
+			end
+
+			if _G.SelectLocalTeleport == "Sky2" then
+				toTarget(CFrame.new(-7899.6157226563, 5545.6030273438, -422.21798706055))
+			end
+
+			if _G.SelectLocalTeleport == "Sky3" then
+				toTarget(CFrame.new(-7868.5288085938, 5638.205078125, -1482.5548095703))
+			end
+		elseif World2 then
+			if _G.SelectLocalTeleport == "Dock" then
+				toTarget(CFrame.new(-12.519311904907, 19.302536010742, 2827.853515625))
+			end
+
+			if _G.SelectLocalTeleport == "Mansion" then
+				toTarget(CFrame.new(-390.34829711914, 321.89730834961, 869.00506591797))
+			end
+
+			if _G.SelectLocalTeleport == "Kingdom Of Rose" then
+				toTarget(CFrame.new(-388.29895019531, 138.35575866699, 1132.1662597656))
+			end
+
+			if _G.SelectLocalTeleport == "Cafe" then
+				toTarget(CFrame.new(-379.70889282227, 73.0458984375, 304.84692382813))
+			end
+
+			if _G.SelectLocalTeleport == "Sunflower Field" then
+				toTarget(CFrame.new(-1576.7171630859, 198.61849975586, 13.725157737732))
+			end
+
+			if _G.SelectLocalTeleport == "Jeramy Mountain" then
+				toTarget(CFrame.new(1986.3519287109, 448.95678710938, 796.70239257813))
+			end
+
+			if _G.SelectLocalTeleport == "Colossuem" then
+				toTarget(CFrame.new(-1871.8974609375, 45.820514678955, 1359.6843261719))
+			end
+
+			if _G.SelectLocalTeleport == "Factory" then
+				toTarget(CFrame.new(349.53750610352, 74.446998596191, -355.62420654297))
+			end
+
+			if _G.SelectLocalTeleport == "The Bridge" then
+				toTarget(CFrame.new(-1860.6354980469, 88.384948730469, -1859.1593017578))
+			end
+
+			if _G.SelectLocalTeleport == "Green Bit" then
+				toTarget(CFrame.new(-2202.3706054688, 73.097663879395, -2819.2687988281))
+			end
+
+			if _G.SelectLocalTeleport == "Graveyard" then
+				toTarget(CFrame.new(-5617.5927734375, 492.22183227539, -778.3017578125))
+			end
+
+			if _G.SelectLocalTeleport == "Dark Area" then
+				toTarget(CFrame.new(3464.7700195313, 13.375151634216, -3368.90234375))
+			end
+
+			if _G.SelectLocalTeleport == "Snow Mountain" then
+				toTarget(CFrame.new(561.23834228516, 401.44781494141, -5297.14453125))
+			end
+
+			if _G.SelectLocalTeleport == "Hot Island" then
+				toTarget(CFrame.new(-5505.9633789063, 15.977565765381, -5366.6123046875))
+			end
+
+			if _G.SelectLocalTeleport == "Cold Island" then
+				toTarget(CFrame.new(-5924.716796875, 15.977565765381, -4996.427734375))
+			end
+
+			if _G.SelectLocalTeleport == "Ice Castle" then
+				toTarget(CFrame.new(6111.7109375, 294.41259765625, -6716.4829101563))
+			end
+
+			if _G.SelectLocalTeleport == "Usopp's Island" then
+				toTarget(CFrame.new(4760.4985351563, 8.3444719314575, 2849.2426757813))
+			end
+
+			if _G.SelectLocalTeleport == "inscription Island" then
+				toTarget(CFrame.new(-5099.01171875, 98.241539001465, 2424.4035644531))
+			end
+
+			if _G.SelectLocalTeleport == "Forgotten Island" then
+				toTarget(CFrame.new(-3051.9514160156, 238.87203979492, -10250.807617188))
+			end
+
+			if _G.SelectLocalTeleport == "Ghost Ship" then
+				game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(923.21252441406, 126.9760055542, 32852.83203125))
+			end
+		elseif World3 then
+			if _G.SelectLocalTeleport == "Port Town" then
+				toTarget(CFrame.new(-275.21615600586, 43.755737304688, 5451.0659179688))
+			end
+
+			if _G.SelectLocalTeleport == "Hydra Island" then
+				toTarget(CFrame.new(5541.2685546875, 668.30456542969, 195.48069763184))
+			end
+
+			if _G.SelectLocalTeleport == "Gaint Tree" then
+				toTarget(CFrame.new(2276.0859375, 25.87850189209, -6493.03125))
+			end
+
+			if _G.SelectLocalTeleport == "Mansion" then
+				local args = {
+					[1] = "requestEntrance",
+					[2] = Vector3.new(-12548.595703125, 337.17001342773, -7554.6103515625)
+				}
+
+				game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+			end
+
+			if _G.SelectLocalTeleport == "Castle on the Sea" then
+				local args = {
+					[1] = "requestEntrance",
+					[2] = Vector3.new(-5079.44677734375, 313.7293395996094, -3151.065185546875)
+				}
+
+				game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+			end
+
+			if _G.SelectLocalTeleport == "Graveyard Island" then
+				toTarget(CFrame.new(-9515.07324, 142.130615, 5537.58398))
+			end
+
+			if _G.SelectLocalTeleport == "Icecream Island" then
+				toTarget(CFrame.new(-880.894531, 118.245354, -11030.7607, -0.867174983, 1.48501234e-09, 0.498003572, 2.70457789e-08, 1, 4.41129586e-08, -0.498003572, 5.1722548e-08, -0.867174983))
+			end
+
+			if _G.SelectLocalTeleport == "Peanut Island" then
+				toTarget(CFrame.new(-2124.06738, 44.0723495, -10179.8281, -0.623125494, -2.55908191e-07, -0.782121837, -1.40530574e-07, 1, -2.15235005e-07, 0.782121837, -2.42063933e-08, -0.623125494))
+			end
+
+			if _G.SelectLocalTeleport == "Lab" then
+				toTarget(CFrame.new(-5057.146484375, 314.54132080078, -2934.7995605469))
+			end
+
+			if _G.SelectLocalTeleport == "Cake Loaf" then
+				toTarget(CFrame.new(-1977.36767578125, 251.509521484375, -12380.4189453125))
+			end
+		end
+	end)
+	
